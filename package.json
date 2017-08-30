@@ -1,0 +1,31 @@
+{
+  "name": "projektarbeit",
+  "private": true,
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "husky": "^0.14.3",
+    "jest": "^20.0.4",
+    "lint-staged": "^4.0.4",
+    "prettier": "^1.6.1"
+  },
+  "scripts": {
+    "lint": "polymer lint",
+    "start": "polymer serve --open",
+    "build": "polymer build",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,css,json}": [
+      "prettier --single-quote --trailing-comma es5 --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@polymer/polymer": "^2.0.2",
+    "@webcomponents/webcomponentsjs": "^1.0.9"
+  },
+  "jest": {
+    "setupFiles": ["./setupTests.js"]
+  }
+}
