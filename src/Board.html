@@ -1,0 +1,23 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="backgammon-board">
+    <template>
+        <span>[[board]]</span>
+    </template>
+
+    <script>
+        class Board extends ReduxMixin(Polymer.Element) {
+            static get is() { return 'backgammon-board'; }
+            static get properties() {
+                return {
+                    board: {
+                        type: Array,
+                        statePath: 'board'
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(Board.is, Board);
+    </script>
+</dom-module>

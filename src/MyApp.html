@@ -8,7 +8,8 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../node_modules/@polymer/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="Board.html">
 
 <dom-module id="my-app">
     <template>
@@ -20,7 +21,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 display: block;
             }
         </style>
+        <backgammon-board></backgammon-board>
     </template>
 
-    <script src="MyApp.js"></script>
+    <script>
+        class MyApp extends Polymer.Element {
+            static get is() {
+                return 'my-app';
+            }
+        }
+
+        window.customElements.define(MyApp.is, MyApp);
+    </script>
 </dom-module>
