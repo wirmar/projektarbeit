@@ -1,0 +1,42 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="board-point">
+    <template>
+        <style>
+            .white {
+                background: white;
+                color: black;
+            }
+            .black {
+                background: black;
+                color: white;
+            }
+            .checker {
+                border-radius: 50%;
+                padding: 10px;
+                border: 2px saddlebrown groove;
+            }
+        </style>
+        <span class$="[[player]] checker">
+            [[checkers]]
+        </span>
+    </template>
+
+    <script>
+        class BoardPoint extends Polymer.Element {
+            static get is() { return 'board-point'; }
+            static get properties() {
+                return {
+                    player: {
+                        type: String,
+                    },
+                    checkers: {
+                        type: Number,
+                    },
+                };
+            }
+        }
+
+        window.customElements.define(BoardPoint.is, BoardPoint);
+    </script>
+</dom-module>

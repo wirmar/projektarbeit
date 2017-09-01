@@ -1,8 +1,21 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="BoardPoint.html">
 
 <dom-module id="backgammon-board">
     <template>
-        <span>[[board]]</span>
+        <style>
+            .board-wrapper {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                grid-template-rows: 500px;
+                padding: 20px;
+            }
+        </style>
+        <div class="board-wrapper">
+            <template is="dom-repeat" items="[[board]]">
+                <board-point player="[[item.player]]" checkers="[[item.checkers]]"></board-point>
+            </template>
+        </div>
     </template>
 
     <script>

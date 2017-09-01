@@ -29,12 +29,20 @@ const emptyBoard = [
     { checkers: 2, player: 'black' },
 ];
 
-const players = ['white, black'];
+const players = ['white', 'black'];
 
 const initialState = {
     board: emptyBoard,
     dice: [1, 1],
     currentPlayer: players[generateRandomNumber(0, 1)],
+    bar: {
+        white: 0,
+        black: 0,
+    },
+    removed: {
+        white: 0,
+        black: 0,
+    },
 };
 
 const reducer = (state = initialState, action) => {
