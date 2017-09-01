@@ -1,25 +1,24 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="Checker.html">
 
 <dom-module id="board-point">
     <template>
         <style>
-            .white {
-                background: white;
-                color: black;
+            :host {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
             }
-            .black {
-                background: black;
-                color: white;
+            :host(:nth-child(odd)) {
+                background: grey;
             }
-            .checker {
-                border-radius: 50%;
-                padding: 10px;
-                border: 2px saddlebrown groove;
+            :host(:nth-child(even)) {
+                background: lightgrey;
             }
         </style>
-        <span class$="[[player]] checker">
-            [[checkers]]
-        </span>
+        <template is="dom-repeat" items="[[arrayForRepeat]]">
+            <board-checker player="[[player]]"></board-checker>
+        </template>
     </template>
 
     <script>
@@ -33,7 +32,27 @@
                     checkers: {
                         type: Number,
                     },
+                    field: {
+                        type: Number,
+                    },
+                    style: {
+                        type: String,
+                        computed: 'computeAlignStyle(field)',
+                        reflectToAttribute: true,
+                    },
+                    arrayForRepeat: {
+                        type: Array,
+                        computed: 'computeArrayForRepeat(checkers)'
+                    },
                 };
+            }
+
+            computeArrayForRepeat(checkers) {
+                return new Array(checkers);
+            }
+
+            computeAlignStyle(field) {
+                return field > 12 ? 'transform: rotate(180deg);' : '';
             }
         }
 

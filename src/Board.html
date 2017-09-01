@@ -4,18 +4,17 @@
 <dom-module id="backgammon-board">
     <template>
         <style>
-            .board-wrapper {
+            :host {
                 display: grid;
                 grid-template-columns: repeat(12, 1fr);
-                grid-template-rows: 500px;
+                grid-template-rows: repeat(2, 50%);
+                height: 100vh;
                 padding: 20px;
             }
         </style>
-        <div class="board-wrapper">
-            <template is="dom-repeat" items="[[board]]">
-                <board-point player="[[item.player]]" checkers="[[item.checkers]]"></board-point>
+            <template is="dom-repeat" items="[[board]]" sort="sortBoardPoint">
+                <board-point player="[[item.player]]" checkers="[[item.checkers]]" field="[[item.field]]"></board-point>
             </template>
-        </div>
     </template>
 
     <script>
@@ -26,8 +25,23 @@
                     board: {
                         type: Array,
                         statePath: 'board'
-                    }
+                    },
+                    fieldIndex: {
+                        type: Number,
+                    },
                 };
+            }
+
+            sortBoardPoint(a, b) {
+                if (a.field <= 12 && b.field <= 12) {
+                    return b.field - a.field;
+                } else if (a.field > 12 && b.field > 12) {
+                    return a.field - b.field;
+                } else if (a.field > 12) {
+                    return 1;
+                } else {
+                    return -1;
+                }
             }
         }
 
