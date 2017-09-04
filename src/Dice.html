@@ -1,0 +1,64 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="two-dice">
+    <template>
+        <style>
+            .die {
+                font-size: 50px;
+            }
+            .roll {
+                position: relative;
+                top: -14px;
+                height: 32px;
+                background: white;
+                cursor: pointer;
+            }
+        </style>
+        <span class="die">
+            [[die1]]
+        </span>
+        <span class="die">
+            [[die2]]
+        </span>
+        <button type="button" on-click="rollTheDice" class="roll">Würfeln!</button>
+    </template>
+
+    <script>
+        class Dice extends ReduxMixin(Polymer.Element) {
+            static get is() { return 'two-dice'; }
+            static get properties() {
+                return {
+                    dice: {
+                        type: Array,
+                        statePath: 'dice',
+                    },
+                    die1: {
+                        type: String,
+                        computed: 'computeDieFaceUnicode(dice, 0)'
+                    },
+                    die2: {
+                        type: String,
+                        computed: 'computeDieFaceUnicode(dice, 1)'
+                    }
+                };
+            }
+
+            rollTheDice() {
+                this.dispatch({ type: 'ROLL_DICE' });
+            }
+
+            computeDieFaceUnicode(dice, i) {
+                return {
+                    1: '⚀',
+                    2: '⚁',
+                    3: '⚂',
+                    4: '⚃',
+                    5: '⚄',
+                    6: '⚅',
+                }[dice[i]];
+            }
+        }
+
+        window.customElements.define(Dice.is, Dice);
+    </script>
+</dom-module>

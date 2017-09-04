@@ -55,9 +55,9 @@ const reducer = (state = initialState, action) => {
                     ...state,
                     board: [
                         ...state.board.slice(0, action.from),
-                        { checkers: checkersLeft, player: checkersLeft > 0 ? action.player : null },
+                        { ...state.board[action.from], checkers: checkersLeft, player: checkersLeft > 0 ? action.player : null },
                         ...state.board.slice(action.from + 1, to),
-                        { checkers: state.board[to].checkers + action.checkers, player: action.player },
+                        { ...state.board[to], checkers: state.board[to].checkers + action.checkers, player: action.player },
                         ...state.board.slice(to + 1),
                     ],
                 };
@@ -67,13 +67,18 @@ const reducer = (state = initialState, action) => {
                     ...state,
                     board: [
                         ...state.board.slice(0, to),
-                        { checkers: state.board[to].checkers + action.checkers, player: checkersLeft > 0 ? action.player : null },
+                        { ...state.board[to], checkers: state.board[to].checkers + action.checkers, player: checkersLeft > 0 ? action.player : null },
                         ...state.board.slice(to + 1, action.from),
-                        { checkers: checkersLeft, player: action.player },
+                        { ...state.board[action.from], checkers: checkersLeft, player: action.player },
                         ...state.board.slice(action.from + 1),
                     ],
                 };
             }
+        case 'ROLL_DICE':
+            return {
+                ...state,
+                dice: [generateRandomNumber(1, 6), generateRandomNumber(1, 6)],
+            };
         default:
             return state;
     }
@@ -83,13 +88,14 @@ const store = Redux.createStore(reducer);
 
 const moveWhitePiecesAction = {
     type: 'MOVE_CHECKERS',
-    from: 0,
+    from: 6,
     moveBy: 2,
-    player: 'white',
+    player: 'black',
     checkers: 2,
 };
 
 console.log(reducer(undefined, moveWhitePiecesAction));
+console.log(reducer(undefined, { type: 'ROLL_DICE' }).dice);
 
 // Export the ReduxMixin
 ReduxMixin = PolymerRedux(store);

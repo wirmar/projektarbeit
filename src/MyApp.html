@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="Board.html">
+<link rel="import" href="Dice.html">
 
 <dom-module id="my-app">
     <template>
@@ -18,13 +19,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --app-primary-color: #4285f4;
                 --app-secondary-color: black;
 
-                display: block;
+                display: flex;
             }
             * {
                 box-sizing: border-box;
             }
+            .board {
+                flex: 0 0 80%;
+            }
+            .controls {
+                margin: 20px 0;
+            }
         </style>
-        <backgammon-board></backgammon-board>
+        <backgammon-board class="board"></backgammon-board>
+        <div class="controls">
+            <two-dice></two-dice>
+        </div>
     </template>
 
     <script>
