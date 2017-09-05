@@ -9,7 +9,9 @@
                 grid-template-columns: repeat(12, 1fr);
                 grid-template-rows: repeat(2, 50%);
                 height: 100vh;
-                padding: 20px;
+                padding: 10px;
+                border: 6px double saddlebrown;
+                border-radius: 20px;
             }
         </style>
             <template is="dom-repeat" items="[[board]]" sort="sortBoardPoint">
@@ -33,11 +35,11 @@
             }
 
             sortBoardPoint(a, b) {
-                if (a.field <= 12 && b.field <= 12) {
+                if (a.field < 12 && b.field < 12) {
                     return b.field - a.field;
-                } else if (a.field > 12 && b.field > 12) {
+                } else if (a.field >= 12 && b.field >= 12) {
                     return a.field - b.field;
-                } else if (a.field > 12) {
+                } else if (a.field >= 12) {
                     return 1;
                 } else {
                     return -1;
