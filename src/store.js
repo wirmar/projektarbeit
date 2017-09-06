@@ -31,9 +31,9 @@ const emptyBoard = [
 
 const players = ['white', 'black'];
 
-const initialState = {
+const initialState = () => ({
     board: emptyBoard,
-    dice: [1, 1],
+    dice: [generateRandomNumber(1, 6), generateRandomNumber(1, 6)],
     currentPlayer: players[generateRandomNumber(0, 1)],
     bar: {
         white: 0,
@@ -43,9 +43,31 @@ const initialState = {
         white: 0,
         black: 0,
     },
+});
+
+const localStorageKey = 'reduxState';
+
+const loadState = () => {
+    try {
+        const serializedState = localStorage.getItem(localStorageKey);
+        return serializedState === null ? undefined : JSON.parse(serializedState);
+    } catch (err) {
+        console.error(err);
+        return undefined;
+    }
 };
 
-const reducer = (state = initialState, action) => {
+const saveState = state => {
+    try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem(localStorageKey, serializedState);
+    } catch (err) {
+        // ignore write errors
+        console.error(err);
+    }
+};
+
+const reducer = (state = initialState(), action) => {
     switch (action.type) {
         case 'MOVE_CHECKERS':
             const checkersLeft = state.board[action.from].checkers - action.checkers;
@@ -93,12 +115,18 @@ const reducer = (state = initialState, action) => {
                     ...state.board.slice(action.from + 1),
                 ],
             };
+        case 'NEW_GAME':
+            return initialState();
         default:
             return state;
     }
 };
 
-const store = Redux.createStore(reducer);
+const store = Redux.createStore(reducer, loadState());
+
+store.subscribe(() => {
+    saveState(store.getState());
+});
 
 console.log(reducer(undefined, { type: 'MOVE_CHECKERS', from: 5, moveBy: 1, player: 'black', checkers: 1 }));
 

@@ -16,9 +16,14 @@ const kickChecker = ({ player, from }) => ({
     from,
 });
 
+const newGame = () => ({
+    type: 'NEW_GAME',
+});
+
 // "Export" the Actions
 ReduxActions = {
     rollDice,
     moveCheckers,
     kickChecker,
+    newGame,
 };
