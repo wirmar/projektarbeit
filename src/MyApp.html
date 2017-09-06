@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="Board.html">
 <link rel="import" href="Dice.html">
 <link rel="import" href="CurrentPlayer.html">
+<link rel="import" href="NewGame.html">
 
 <dom-module id="my-app">
     <template>
@@ -34,6 +35,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </style>
         <backgammon-board class="board"></backgammon-board>
         <div class="controls">
+            <new-game-button></new-game-button>
             <two-dice></two-dice>
             <div><current-player></current-player></div>
         </div>

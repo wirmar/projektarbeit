@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="new-game-button">
+    <template>
+        <style>
+            .ng-button {
+                display: block;
+                height: 32px;
+                background: white;
+                cursor: pointer;
+            }
+        </style>
+        <button type="button" on-click="startNewGame" class="ng-button">Neues Spiel!!</button>
+    </template>
+
+    <script>
+        class NewGame extends ReduxMixin(Polymer.Element) {
+            static get is() { return 'new-game-button'; }
+
+            startNewGame() {
+                this.dispatch(ReduxActions.newGame());
+            }
+        }
+
+        window.customElements.define(NewGame.is, NewGame);
+    </script>
+</dom-module>
