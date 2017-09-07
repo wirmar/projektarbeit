@@ -14,12 +14,16 @@
             .checker {
                 border-radius: 50%;
                 border: 2px saddlebrown groove;
-                width: 50%;
-                padding-top: 50%;
+                width: 3.2vw;
+                height: 3.2vw;
                 margin: 1px auto;
+                font-size: 2vw;
+                line-height: 3.2vw;
+                text-align: center;
             }
         </style>
         <div class$="[[player]] checker">
+            [[content]]
         </div>
     </template>
 
@@ -30,6 +34,12 @@
                 return {
                     player: {
                         type: String,
+                    },
+                    field: {
+
+                    },
+                    content: {
+                        type:String,
                     },
                 };
             }

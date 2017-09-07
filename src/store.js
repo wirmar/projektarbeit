@@ -36,8 +36,8 @@ const initialState = () => ({
     dice: [generateRandomNumber(1, 6), generateRandomNumber(1, 6)],
     currentPlayer: players[generateRandomNumber(0, 1)],
     bar: {
-        white: 2,
-        black: 1,
+        white: 0,
+        black: 0,
     },
     removed: {
         white: 0,

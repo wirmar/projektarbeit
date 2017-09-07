@@ -1,0 +1,28 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="./Checker.html">
+
+<dom-module id="removed-checkers">
+    <template>
+        <style>
+        </style>
+        <h4>Herausgenommene Steine:</h4>
+        <board-checker player="white" field="removed" content="[[removed.white]]"></board-checker>
+        <board-checker player="black" field="removed" content="[[removed.black]]"></board-checker>
+    </template>
+
+    <script>
+        class RemovedCheckers extends ReduxMixin(Polymer.Element) {
+            static get is() { return 'removed-checkers'; }
+            static get properties() {
+                return {
+                    removed: {
+                        type: String,
+                        statePath: 'removed',
+                    },
+                };
+            }
+        }
+
+        window.customElements.define(RemovedCheckers.is, RemovedCheckers);
+    </script>
+</dom-module>
