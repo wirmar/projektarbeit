@@ -1,0 +1,44 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="./Checker.html">
+
+<dom-module id="kicked-checkers">
+    <template>
+        <style>
+        </style>
+        <h4>Rausgeworfene Steine:</h4>
+        <template is="dom-repeat" items="[[whiteKickedCheckers]]">
+            <board-checker player="white" field="bar"></board-checker>
+        </template>
+        <template is="dom-repeat" items="[[blackKickedCheckers]]">
+            <board-checker player="black" field="bar"></board-checker>
+        </template>
+    </template>
+
+    <script>
+        class KickedCheckers extends ReduxMixin(Polymer.Element) {
+            static get is() { return 'kicked-checkers'; }
+            static get properties() {
+                return {
+                    kicked: {
+                        type: String,
+                        statePath: 'bar',
+                    },
+                    whiteKickedCheckers: {
+                        type: Array,
+                        computed: 'computeKickedCheckers(kicked, \'white\')',
+                    },
+                    blackKickedCheckers: {
+                        type: Array,
+                        computed: 'computeKickedCheckers(kicked, \'black\')',
+                    },
+                };
+            }
+
+            computeKickedCheckers(kicked, player) {
+                return new Array(kicked[player]);
+            }
+        }
+
+        window.customElements.define(KickedCheckers.is, KickedCheckers);
+    </script>
+</dom-module>

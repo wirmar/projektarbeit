@@ -36,8 +36,8 @@ const initialState = () => ({
     dice: [generateRandomNumber(1, 6), generateRandomNumber(1, 6)],
     currentPlayer: players[generateRandomNumber(0, 1)],
     bar: {
-        white: 0,
-        black: 0,
+        white: 2,
+        black: 1,
     },
     removed: {
         white: 0,
@@ -128,7 +128,7 @@ store.subscribe(() => {
     saveState(store.getState());
 });
 
-console.log(reducer(undefined, { type: 'MOVE_CHECKERS', from: 5, moveBy: 1, player: 'black', checkers: 1 }));
+console.log(store.getState());
 
 // "Export" the ReduxMixin
 ReduxMixin = PolymerRedux(store);
