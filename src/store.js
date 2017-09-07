@@ -71,8 +71,22 @@ const reducer = (state = initialState(), action) => {
     switch (action.type) {
         case 'MOVE_CHECKERS':
             const checkersLeft = state.board[action.from].checkers - action.checkers;
+            const to = action.player === 'white' ? action.from + action.moveBy : action.from - action.moveBy;
+            if ((to >= 24 && action.player ==='white') || (to < 0 && action.player === 'black')) {
+                return {
+                    ...state,
+                    removed: {
+                        ...state.removed,
+                        [action.player]: state.removed[action.player] + 1,
+                    },
+                    board: [
+                        ...state.board.slice(0, action.from),
+                        { ...state.board[action.from], checkers: checkersLeft, player: checkersLeft > 0 ? action.player : null },
+                        ...state.board.slice(action.from + 1),
+                    ],
+                };
+            }
             if (action.player === 'white') {
-                const to = action.from + action.moveBy;
                 return {
                     ...state,
                     board: [
@@ -84,7 +98,6 @@ const reducer = (state = initialState(), action) => {
                     ],
                 };
             } else {
-                const to = action.from - action.moveBy;
                 return {
                     ...state,
                     board: [
