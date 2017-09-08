@@ -53,6 +53,7 @@ const loadState = () => {
         return serializedState === null ? undefined : JSON.parse(serializedState);
     } catch (err) {
         console.error(err);
+        // use initial state on error
         return undefined;
     }
 };
@@ -102,9 +103,9 @@ const reducer = (state = initialState(), action) => {
                     ...state,
                     board: [
                         ...state.board.slice(0, to),
-                        { ...state.board[to], checkers: state.board[to].checkers + action.checkers, player: checkersLeft > 0 ? action.player : null },
+                        { ...state.board[to], checkers: state.board[to].checkers + action.checkers, player: action.player },
                         ...state.board.slice(to + 1, action.from),
-                        { ...state.board[action.from], checkers: checkersLeft, player: action.player },
+                        { ...state.board[action.from], checkers: checkersLeft, player: checkersLeft > 0 ? action.player : null },
                         ...state.board.slice(action.from + 1),
                     ],
                 };
@@ -140,8 +141,6 @@ const store = Redux.createStore(reducer, loadState());
 store.subscribe(() => {
     saveState(store.getState());
 });
-
-console.log(store.getState());
 
 // "Export" the ReduxMixin
 ReduxMixin = PolymerRedux(store);

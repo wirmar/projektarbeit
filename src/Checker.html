@@ -21,14 +21,41 @@
                 line-height: 3.2vw;
                 text-align: center;
             }
+            .move-button {
+                display: inline;
+                position: relative;
+                border: 1px solid white;
+                cursor: pointer;
+                height: 3vw;
+                width: 1.4vw;
+            }
+            .move-button.one {
+                left: -0.8vw;
+                top: -0.3vw;
+                border-top-left-radius: 50%;
+                border-bottom-left-radius: 50%;
+            }
+            .move-button.two {
+                left: 0.8vw;
+                top: -3.9vw;
+                border-top-right-radius: 50%;
+                border-bottom-right-radius: 50%;
+            }
+            .upside-down {
+                transform: rotate(-180deg);
+            }
         </style>
-        <div class$="[[player]] checker">
+        <div class$="[[player]] checker [[upsideDownClass]]" on-mouseover="onMouseOver" on-mouseout="onMouseOut">
             [[content]]
+            <template is="dom-if" if="[[hovered]]">
+                <button type="button" title$="Bewege diesen Stein um [[dice.0]]" class="move-button one" name="0" on-click="makeMove">[[dice.0]]</button>
+                <button type="button" title$="Bewege diesen Stein um [[dice.1]]" class="move-button two" name="1" on-click="makeMove">[[dice.1]]</button>
+            </template>
         </div>
     </template>
 
     <script>
-        class Checker extends Polymer.Element {
+        class Checker extends ReduxMixin(Polymer.Element) {
             static get is() { return 'board-checker'; }
             static get properties() {
                 return {
@@ -39,9 +66,51 @@
 
                     },
                     content: {
-                        type:String,
+                        type: String,
                     },
+                    currentPlayer: {
+                        type: String,
+                        statePath: 'currentPlayer',
+                    },
+                    dice: {
+                        type: Array,
+                        statePath: 'dice',
+                    },
+                    hovered: {
+                        type: Boolean,
+                        value: false,
+                    },
+                    upsideDownClass: {
+                        type: String,
+                        computed: 'computeIsUpsideDown(field)',
+                    }
                 };
+            }
+
+            computeIsUpsideDown(field) {
+                return field >= 12 ? 'upside-down' : '';
+            }
+
+            onMouseOver() {
+                if (this.field !== 'removed' && this.currentPlayer === this.player) {
+                    this.hovered = true;
+                }
+            }
+
+            onMouseOut() {
+                this.hovered = false;
+            }
+
+            makeMove(event) {
+                if (this.field !== 'removed' && this.currentPlayer === this.player) {
+                    const die = this.dice[parseInt(event.target.name, 10)];
+                    this.dispatch(ReduxActions.moveCheckers({
+                        from: this.field,
+                        player: this.player,
+                        checkers: 1,
+                        moveBy: die,
+                    }));
+                }
             }
         }
 
