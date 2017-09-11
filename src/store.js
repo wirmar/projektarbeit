@@ -68,15 +68,56 @@ const saveState = state => {
     }
 };
 
+const calculateToOfMove = ({ player, from, moveBy }, state) => {
+    let to;
+    if (player === 'white') {
+        to = from + moveBy;
+        if (to >= 24) {
+            to = 'removed';
+        }
+    } else {
+        to = from - moveBy;
+        if (to < 0) {
+            to ='removed';
+        }
+    }
+    if (typeof to === 'number' && state.board[to].checkers === 1 && state.board[to].player !== player) {
+        return 'bar';
+    }
+    return to;
+};
+
+const isMoveValid = ({ player, from, moveBy }, to, state) => {
+    if (typeof to === 'number') {
+        return state.board[to].player === player || state.board[to].checkers <= 1;
+    } else if (to === 'removed') {
+        const isExact = (player === 'white' ? 23 - from : from) === moveBy - 1;
+        return state.board.reduce((acc, val) => {
+            if (player === 'white') {
+                const offset = isExact ? 17 : from;
+                return acc && (val.field > offset || val.checkers === 0 || val.player !== player);
+            }
+            const offset = isExact ? 6 : from;
+            return acc && (val.field < offset || val.checkers === 0 || val.player !== player);
+        }, true);
+    } else if (to === 'bar') {
+        return true;
+    }
+    return false;
+};
+
 const reducer = (state = initialState(), action) => {
     switch (action.type) {
         case 'MOVE_CHECKERS':
             const checkersLeft = state.board[action.from].checkers - action.checkers;
-            const to = action.player === 'white' ? action.from + action.moveBy : action.from - action.moveBy;
-            if ((to >= 24 && action.player ==='white') || (to < 0 && action.player === 'black')) {
+            const to = calculateToOfMove(action, state);
+            if (!isMoveValid(action, to, state)) {
+                return state;
+            }
+            if (to === 'removed' || to === 'bar') {
                 return {
                     ...state,
-                    removed: {
+                    [to]: {
                         ...state.removed,
                         [action.player]: state.removed[action.player] + 1,
                     },
