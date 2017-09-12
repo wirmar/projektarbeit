@@ -1,0 +1,47 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="winner-announcer">
+    <template>
+        <style>
+            :host {
+                position: fixed;
+                top: 44vh;
+                left: 10vw;
+                font-size: 8vh;
+                color: green;
+                text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+            }
+        </style>
+        <template is="dom-if" if="[[winner]]">
+            <span class="winner">[[winner]]</span>
+        </template>
+    </template>
+
+    <script>
+        class Winner extends ReduxMixin(Polymer.Element) {
+            static get is() { return 'winner-announcer'; }
+            static get properties() {
+                return {
+                    removed: {
+                        type: Array,
+                        statePath: 'removed'
+                    },
+                    winner: {
+                        type: String,
+                        computed: 'computeWinner(removed)',
+                    },
+                };
+            }
+
+            computeWinner(removed) {
+                if (removed.white >= 15) {
+                    return 'Weiß hat gewonnen!';
+                } else if (removed.white >= 15) {
+                    return 'Schwarz hat gewonnen!';
+                }
+            }
+        }
+
+        window.customElements.define(Winner.is, Winner);
+    </script>
+</dom-module>

@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="NewGame.html">
 <link rel="import" href="KickedCheckers.html">
 <link rel="import" href="RemovedCheckers.html">
+<link rel="import" href="Winner.html">
 
 <dom-module id="my-app">
     <template>
@@ -24,6 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --app-secondary-color: black;
 
                 display: flex;
+                overflow: hidden;
             }
             * {
                 box-sizing: border-box;
@@ -42,6 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div><current-player></current-player></div>
             <kicked-checkers></kicked-checkers>
             <removed-checkers></removed-checkers>
+            <winner-announcer></winner-announcer>
         </div>
     </template>
 
