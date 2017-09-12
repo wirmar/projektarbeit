@@ -8,12 +8,22 @@
                 display: flex;
                 flex-direction: column;
                 height: 100%;
+                border-bottom: 2px solid black;
             }
-            :host(:nth-child(odd)) {
+            :host(:nth-of-type(odd)) {
                 background: grey;
             }
-            :host(:nth-child(even)) {
+            :host(:nth-of-type(even)) {
                 background: lightgrey;
+            }
+            :host(:nth-of-type(6)), :host(:nth-of-type(18)) {
+                border-right: 2px solid black;
+            }
+            :host(:nth-of-type(7)), :host(:nth-of-type(19)) {
+                border-left: 2px solid black;
+            }
+            :host(:nth-of-type(n+13)) {
+                transform: scale(1, -1);
             }
         </style>
         <template is="dom-repeat" items="[[arrayForRepeat]]">
@@ -35,11 +45,6 @@
                     field: {
                         type: Number,
                     },
-                    style: {
-                        type: String,
-                        computed: 'computeAlignStyle(field)',
-                        reflectToAttribute: true,
-                    },
                     arrayForRepeat: {
                         type: Array,
                         computed: 'computeArrayForRepeat(checkers)'
@@ -49,10 +54,6 @@
 
             computeArrayForRepeat(checkers) {
                 return new Array(checkers);
-            }
-
-            computeAlignStyle(field) {
-                return field >= 12 ? 'transform: rotate(180deg);' : '';
             }
         }
 
