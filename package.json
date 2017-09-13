@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "polymer serve --open",
-    "build": "polymer build && xcopy /s build\\es5-bundled docs",
+    "build": "polymer build && xcopy /s /y build\\es5-bundled docs",
     "postinstall": "bower install"
   },
   "dependencies": {
