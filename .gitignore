@@ -2,3 +2,5 @@ build/
 node_modules/
 bower_components/
 .idea/
+!docs/node_modules
+!docs/bower_components

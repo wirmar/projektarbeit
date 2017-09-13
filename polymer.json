@@ -9,7 +9,9 @@
   ],
   "extraDependencies": [
     "manifest.json",
-    "bower_components/webcomponentsjs/*.js"
+    "bower_components/webcomponentsjs/*.js",
+    "bower_components/polymer-redux/*.js",
+    "node_modules/redux/dist/redux.js"
   ],
   "lint": {
     "rules": ["polymer-2"]
