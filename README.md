@@ -11,3 +11,5 @@ Um das Projekt für ein deployment zu bauen kann `npm run build` verwendet werde
 ### Nützliche Polymer Links
 * [cheatsheet](https://meowni.ca/posts/polymer-2-cheatsheet/)
 * [offizielle dokumentation](https://www.polymer-project.org/2.0/docs/devguide/feature-overview)
+
+### [Fazit der Projektarbeit](./FAZIT.md)
