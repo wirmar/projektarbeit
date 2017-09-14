@@ -1,6 +1,7 @@
 Polymer bietet mit der Verwendung von aktuellen Technologien einen Einblick, wohin die Webentwicklung in den nächsten Jahren gehen wird.
 Dabei setzt es auf eine Komponenten orientierte Architektur, welche im Webumfeld immer populärer wird.
 Durch Features wie lokale CSS Regeln werden alte Probleme gelöst.
+Polymer setzt anders als andere ähnliche populäre Bibliotheken damit stark auf Browsernative Technologien statt eigenen Abstraktionen.
 
 Der größte Nachteil von Polymer ist seine scheinbar kleine Community, unter der das Entwickler Tooling leidet.
 Es fehlt ein einfaches Buildtool, welches ohne Konfiguration "einfach funktioniert" (Beispiel [create-react-app](https://github.com/facebookincubator/create-react-app)).
